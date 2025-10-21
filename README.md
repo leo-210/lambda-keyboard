@@ -1,4 +1,4 @@
-# lambda-keyboard
+# Lambda keyboard
 
 A custom 36-key wired ChocV1 split keyboard.
 

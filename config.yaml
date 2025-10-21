@@ -1,0 +1,272 @@
+meta:
+  engine: 4.1.0
+
+units:
+  kx: cx
+  ky: cy
+  px: kx + 2
+  py: ky + 2
+  $default_width: cx
+  $default_height: cy
+
+points:
+  zones:
+    matrix:
+      # Fix placement on KiCAD sheet.
+      anchor:
+        shift: [100, -100]
+      key:
+        padding: 1ky
+        spread: 1kx
+      columns:
+        pinky:
+          key:
+            splay: 10
+          rows:
+            bottom.mcu_pin: GP5
+            home.mcu_pin: GP10
+            top.mcu_pin: GP15
+        ring:
+          key:
+            spread: kx + 1.4
+            splay: -5
+            stagger: 10
+          rows:
+            bottom.mcu_pin: GP6
+            home.mcu_pin: GP11
+            top.mcu_pin: GP26
+        middle:
+          key:
+            spread: kx + 1
+            splay: -5
+            stagger: 4
+          rows:
+            bottom.mcu_pin: GP7
+            home.mcu_pin: GP12
+            top.mcu_pin: GP27
+        index:
+          key:
+            stagger: -5
+          rows:
+            bottom.mcu_pin: GP8
+            home.mcu_pin: GP13
+            top.mcu_pin: GP28
+        inner:
+          key:
+            stagger: -2
+          rows:
+            bottom.mcu_pin: GP9
+            home.mcu_pin: GP14
+            top.mcu_pin: GP29
+      rows:
+        bottom: 
+        home:
+        top:
+    thumbs:
+      key:
+        padding: 1ky
+        spread: 1kx
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [-1.4kx, -1.4ky]
+      columns:
+        inner:
+          key:
+            name: thumb_inner
+            shift: [0, 2.5]
+            mcu_pin: GP4
+        middle:
+          key:
+            name: thumb_middle
+            spread: 1.15kx
+            splay: -15
+            mcu_pin: GP3
+        space:
+          key:
+            name: thumb_space
+            height: 1.5u
+            spread: 1.2kx
+            shift: [0, -2.5]
+            splay: -15
+            mcu_pin: GP2
+      rows:
+        only:
+
+outlines:
+  keys:
+    - what: rectangle
+      where: true
+      size: [kx-0.5,ky-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: matrix_pinky_top
+          shift: [-0.5px, 0.5py]
+        - ref: matrix_ring_top
+          shift: [-0.5px, 0.5py]
+        - ref: matrix_middle_top
+          shift: [-0.5px, 0.5py]
+        - ref: matrix_middle_top
+          shift: [0.5px, 0.5py]
+        - ref: matrix_inner_top
+          shift: [0.5px, 0.5py]
+        - ref: matrix_inner_top
+          shift: [1.5px + 2, 0.5py]
+        - ref: matrix_inner_top
+          shift: [1.5px + 2, -3py]
+        - ref: thumb_space
+          shift: [0.5px, -0.5py]
+        - ref: thumb_middle
+          shift: [0.5px, -0.5py]
+        - ref: thumb_middle
+          shift: [-0.5px, -0.5py]
+        - ref: thumb_inner
+          shift: [-0.5px, -0.5py]
+        - ref: matrix_pinky_bottom
+          shift: [-0.5px, -0.5py]
+      fillet: 2
+  combo:
+    - name: board
+    - operation: stack
+      name: keys
+
+pcbs:
+  kdb-v1:
+    outlines:
+      main:
+        outline: board
+    footprints:
+      choc_hotswap:
+        what: choc
+        where: true
+        params:
+          keycaps: true
+          reverse: true
+          hotswap: true
+          from: "{{mcu_pin}}"
+          to: GND
+      connector:
+        what: adamtech_mdj_004_fs
+        where:
+          ref: matrix_inner_home
+          shift: [1.47kx,-0.7ky]
+          rotate: -90
+        params:
+          reverse: true
+          GND1: GND
+          GND2: GND
+          VCC: P5V
+          DATA: GP1
+      mcu:
+        what: rp2040zero
+        where:
+          ref: matrix_inner_top
+          shift: [0.5kx + 1, -1ky + 1]
+        params:
+          reverse: true
+          GND: GND
+      d1:
+        what: led_sk6812mini-e
+        where:
+          ref: matrix_pinky_top
+          shift: [0.5kx, -0.45ky]
+          rotate: -30
+        params:
+          reversible: true
+          reverse_mount: false
+          P2: D1_DOUT
+          P4: D1_DIN
+      d2:
+        what: led_sk6812mini-e
+        where:
+          ref: matrix_index_top
+          shift: [-0.5kx, -0.15ky]
+          rotate: -30
+        params:
+          reversible: true
+          reverse_mount: false
+          P2: D2_DOUT
+          P4: D2_DIN
+      d3:
+        what: led_sk6812mini-e
+        where: 
+          ref: matrix_inner_home
+          shift: [0.4kx, -0.4ky]
+        params:
+          reversible: true
+          reverse_mount: false
+          P2: D3_DOUT
+          P4: D3_DIN
+      d4:
+        what: led_sk6812mini-e
+        where:
+          ref: thumb_space
+          shift: [-0.5kx, 0.6ky]
+        params:
+          reversible: true
+          reverse_mount: false
+          P2: D4_DOUT
+          P4: D4_DIN
+      d5:
+        what: led_sk6812mini-e
+        where:
+          ref: thumb_inner
+          shift: [-0.4kx, 0.6ky]
+        params:
+          reversible: true
+          reverse_mount: false
+          P2: D5_DOUT
+          P4: D5_DIN
+      mount1:
+        what: mounting_hole_npth
+        where:
+          ref: matrix_ring_top
+          shift: [-0.5kx, -0.25ky]
+      mount1_label:
+        what: utility_text
+        where:
+          ref: matrix_ring_top
+          shift: [-0.5kx + 2.5, -0.25ky]
+        params:
+          reversible: true
+          text: M2
+      mount2:
+        what: mounting_hole_npth
+        where:
+          ref: matrix_ring_bottom
+          shift: [0.5kx, -0.5ky]
+      mount2_label:
+        what: utility_text
+        where:
+          ref: matrix_ring_bottom
+          shift: [0.5kx + 2.5, -0.5ky]
+        params:
+          reversible: true
+          text: M2
+      mount3:
+        what: mounting_hole_npth
+        where:
+          ref: matrix_inner_bottom
+          shift: [0.5kx, -0.5ky]
+      mount3_label:
+        what: utility_text
+        where:
+          ref: matrix_inner_bottom
+          shift: [0.5kx + 2.5, -0.5ky]
+        params:
+          reversible: true
+          text: M2
+      mount4:
+        what: mounting_hole_npth
+        where:
+          ref: matrix_index_top
+          shift: [0.5kx, -0.5ky]
+      mount4_label:
+        what: utility_text
+        where:
+          ref: matrix_index_top
+          shift: [0.5kx + 2.5, -0.5ky]
+        params:
+          reversible: true
+          text: M2

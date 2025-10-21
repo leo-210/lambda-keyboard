@@ -36,6 +36,8 @@ layout. The keyboard layout was inspired by
 [Miryoku](https://github.com/manna-harbour/miryoku), and you can view it on
 [keyboard-layout-editor.com](https://www.keyboard-layout-editor.com/#/gists/44301debdf501308d3bc676f406fde57).
 
+![Keyboard example layout](images/keyboard-layout.png)
+
 
 # About the project
 

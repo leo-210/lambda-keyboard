@@ -6,6 +6,10 @@ A custom 36-key wired ChocV1 split keyboard.
 > can be a good idea, please think before building exactly this design : there
 > are a few flaws that I wrote about below.
 
+![Unplugged keyboard](images/keyboard-unplugged.jpg)
+
+![Keyboard with lights on](images/keyboard-lights-on.jpg)
+
 
 # Building the keyboard
 

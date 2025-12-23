@@ -78,7 +78,7 @@ I like this Greek letter, and my name starts with an L.
 
 ## What would I change ?
 
-As my first design, nothing is perfect, and here are some think I would change
+As my first design, nothing is perfect, and here are some things I would change
 for a future design.
 
 ### An other connector

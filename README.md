@@ -81,10 +81,11 @@ I like this Greek letter, and my name starts with an L.
 As my first design, nothing is perfect, and here are some things I would change
 for a future design.
 
-### An other connector
+### A different connector
 
 I like that the mini DIN protects my keyboard from shorting, but the cable is
-really bulky. I'll think about changing to USB C next time.
+really bulky. I'll think about changing to USB C next time, or just TRRS, even
+with the lack of shorting safety.
 
 ### 4 rows instead of 3 to make writing french accents easier.
 
